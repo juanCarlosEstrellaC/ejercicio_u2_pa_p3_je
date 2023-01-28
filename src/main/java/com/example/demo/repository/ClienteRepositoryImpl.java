@@ -2,7 +2,6 @@ package com.example.demo.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.modelo.Automovil;
 import com.example.demo.modelo.Cliente;
 
 import jakarta.persistence.EntityManager;

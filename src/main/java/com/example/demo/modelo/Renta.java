@@ -3,6 +3,7 @@ package com.example.demo.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,15 +34,15 @@ public class Renta {
 	@Column(name = "renta_valorPago")
 	private BigDecimal valorPago;
 	
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "renta_id_miAutomovil")
 	private Automovil miAutomovil;
 
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "renta_id_miCliente")
 	private Cliente miCliente;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "renta_id_miPago")
 	private Pago miPago;
 	

@@ -14,36 +14,46 @@ import com.example.demo.modelo.Pago;
 import com.example.demo.modelo.Renta;
 import com.example.demo.repository.IAutomovilRepository;
 import com.example.demo.repository.IClienteRepository;
+import com.example.demo.repository.IRentaRepository;
 
 @Service
 public class RentaServiceImpl implements IRentaService {
 
 	@Autowired
-	private IAutomovilRepository iAutomovilRepository;
+	private IRentaRepository iRentaRepository;
 	
 	@Autowired
 	private IClienteRepository iClienteRepository;
 	
+	@Autowired
+	private IAutomovilRepository iAutomovilRepository;
+	
 	@Override
 	public void realizarRenta(String placa, String cedula, BigDecimal numeroDias, String tarjeta) {
 		
-		Automovil auto = this.iAutomovilRepository.buscar(placa);
 		Cliente cliente = this.iClienteRepository.buscar(cedula);
-		
-		Pago pago = new Pago();
-		pago.setNumeroTarjeta(tarjeta);
-		
-		
-		List<Renta> miListaRentas = new ArrayList<Renta>();
-			Renta miRenta = new Renta();
-			miRenta.setFecha(LocalDateTime.now());
-			miRenta.setNumeroDias(numeroDias);
-			miRenta.setValorPago(new BigDecimal(15));
-			//miRenta.setValorPago(new BigDecimal(numeroDias.multiply(numeroDias)));
-		miListaRentas.add(miRenta);
-		
-		pago.setMiRenta(miRenta);
+		Automovil automovil = this.iAutomovilRepository.buscar(placa);
 
+		List<Renta> miListaRentas = new ArrayList<Renta>();
+			Renta renta1 = new Renta();
+			renta1.setFecha(LocalDateTime.now());
+			renta1.setNumeroDias(numeroDias);
+			renta1.setValorPago(new BigDecimal(2.50).multiply(renta1.getNumeroDias()));
+			renta1.setMiAutomovil(automovil);
+			renta1.setMiCliente(cliente);
+			
+				Pago pago = new Pago();
+				pago.setNumeroTarjeta(tarjeta);
+				pago.setValorPago(renta1.getValorPago().add(renta1.getValorPago().multiply(new BigDecimal(0.05))));
+				//pago.setMiRenta(renta1);
+			renta1.setMiPago(pago);
+			miListaRentas.add(renta1);
+		
+		cliente.setMilistaRentasClie(miListaRentas);
+		automovil.setMiListaRentaAuto(miListaRentas);
+		
+		this.iRentaRepository.insertar(renta1);
+		
 		
 	}
 

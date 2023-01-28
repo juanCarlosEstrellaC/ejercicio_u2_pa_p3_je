@@ -6,12 +6,13 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "automovil")
+@Table(name = "automovilRent")
 public class Automovil {
 	
 	@Id
@@ -21,14 +22,13 @@ public class Automovil {
 	@Column(name = "auto_valorPorDia")
 	private BigDecimal valorPorDia;
 	
-	@OneToMany(mappedBy = "miAutomovil", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "miAutomovil", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Renta> miListaRentaAuto;
 
-	//toString
+	//toString quitado la lista de Rentas para que no haya stack overflow:
 	@Override
 	public String toString() {
-		return "Automovil [placa=" + placa + ", valorPorDia=" + valorPorDia + ", miListaRentaAuto=" + miListaRentaAuto
-				+ "]";
+		return "Automovil [placa=" + placa + ", valorPorDia=" + valorPorDia + "]";
 	}
 
 	//Get y Set

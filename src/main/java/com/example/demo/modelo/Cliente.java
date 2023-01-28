@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -20,7 +21,7 @@ public class Cliente {
 	@Column(name = "clie_nombre")
 	private String nombre;
 	
-	@OneToMany(mappedBy = "miCliente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "miCliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Renta> milistaRentasClie;
 
 	//toString:

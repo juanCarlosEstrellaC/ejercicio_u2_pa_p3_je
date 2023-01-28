@@ -28,12 +28,17 @@ public class Pago {
 	@Column(name = "pago_valorPago")
 	private BigDecimal valorPago;
 	
-	@OneToOne(mappedBy = "miPago",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "miPago")
 	private Renta miRenta;
 
+	//toString:
+	@Override
+	public String toString() {
+		return "Pago [id=" + id + ", numeroTarjeta=" + numeroTarjeta + ", valorPago=" + valorPago + ", miRenta="
+				+ miRenta + "]";
+	}
 	
-	
-	
+	//Get y Set
 	public Integer getId() {
 		return id;
 	}
