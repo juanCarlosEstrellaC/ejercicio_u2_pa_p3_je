@@ -34,15 +34,20 @@ public class Renta {
 	@Column(name = "renta_valorPago")
 	private BigDecimal valorPago;
 	
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE) // No va el (cascade = CascadeType.ALL), ya que al ingresar un automovil, directamente, se crea con un id único. 
+			   								 // al ingresar una Renta, si estaría el cascade, ingresaría de nuevo ese elemento(realmente se cae la app, no deja que eso suceda), 
+			   								 // generando duplicidad en la pk.
+											 // En este caso, solo me interesa que esté el .Remove, ya que al querer borrar una Renta, no me deja si no remuevo en cascada las pk de las 
+											 // otras tablas asociadas a Renta.
 	@JoinColumn(name = "renta_id_miAutomovil")
 	private Automovil miAutomovil;
 
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE) // Misma explicación que en miAutomovil de por qué no va el (cascade = CascadeType.ALL), y de por qué sí va el .Remove
 	@JoinColumn(name = "renta_id_miCliente")
 	private Cliente miCliente;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL) 	// Aquí sí va el cascade, puesto que al ingresar una Renta, quiero que me ingrese también el pago, y el pago 
+										 	// no lo he ingresado antes, porque sería ilógico (ingresar un pago antes de ingresar la renta).
 	@JoinColumn(name = "renta_id_miPago")
 	private Pago miPago;
 	
@@ -69,7 +74,6 @@ public class Renta {
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
-
 
 	public BigDecimal getNumeroDias() {
 		return numeroDias;

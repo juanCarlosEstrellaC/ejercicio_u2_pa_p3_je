@@ -45,16 +45,21 @@ public class RentaServiceImpl implements IRentaService {
 				Pago pago = new Pago();
 				pago.setNumeroTarjeta(tarjeta);
 				pago.setValorPago(renta1.getValorPago().add(renta1.getValorPago().multiply(new BigDecimal(0.05))));
-				//pago.setMiRenta(renta1);
+				pago.setMiRenta(renta1); // esta línea va?
+				
 			renta1.setMiPago(pago);
-			miListaRentas.add(renta1);
+		miListaRentas.add(renta1);
 		
 		cliente.setMilistaRentasClie(miListaRentas);
 		automovil.setMiListaRentaAuto(miListaRentas);
 		
 		this.iRentaRepository.insertar(renta1);
 		
-		
+	}
+
+	@Override
+	public void borrar(Integer id) {
+		this.iRentaRepository.borrar(id);
 	}
 
 }

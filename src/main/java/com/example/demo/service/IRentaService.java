@@ -5,5 +5,5 @@ import java.math.BigDecimal;
 public interface IRentaService {
 	
 	public void realizarRenta(String placa, String cedula, BigDecimal numeroDias, String tarjeta);
-
+	public void borrar(Integer id);
 }

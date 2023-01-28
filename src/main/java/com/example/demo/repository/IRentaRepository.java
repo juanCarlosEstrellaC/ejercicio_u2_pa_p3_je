@@ -5,5 +5,6 @@ import com.example.demo.modelo.Renta;
 public interface IRentaRepository {
 	
 	public void insertar(Renta renta);
+	public void borrar(Integer id);
 
 }

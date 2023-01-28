@@ -31,31 +31,36 @@ public class EjercicioU2PaP3JeApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-				
-		BigDecimal numDias = new BigDecimal(5);
-		String numTarjeta = "98765";
-		
+	//1. Creo e inserto un Automovil y un Cliente:
 		Automovil miAuto = new Automovil();
-		miAuto.setPlaca("1234");
+		miAuto.setPlaca("AAA-525");
 		miAuto.setValorPorDia(new BigDecimal(100));
-		//this.iAutomovilService.guardar(miAuto);
+//		this.iAutomovilService.guardar(miAuto);
 		
 		Cliente miCliente = new Cliente();
-		miCliente.setCedula("1234567");
-		miCliente.setNombre("Juan");
-		//this.iClienteService.guardar(miCliente);
+		miCliente.setCedula("2256489-2");
+		miCliente.setNombre("Rauw Alejandro");
+//		this.iClienteService.guardar(miCliente);
+		
+	// 2. Realizo una Renta:
+//		this.iRentaService.realizarRenta(miAuto.getPlaca(), miCliente.getCedula(), new BigDecimal(5), "98765");
 		
 		
-		this.iRentaService.realizarRenta(miAuto.getPlaca(), miCliente.getCedula(), numDias, numTarjeta);
+	// 3. Buscar por placa un automovil y por cédula un cliente:
 		
+		// 	3.1. Me pide que imprima todo el objeto buscado. Para imprimir las referencias de otras tablas asociadas a dicho objeto,
+		//       usaré en los parámetros de la anotación el fetch = FetchType.EAGER.
+		//  3.2. En uno de las dos clases que voy a imprimir el objeto, quito del toString la lista de Rentas, para evitar el stack overflow.
 		
-		//Buscar por placa un automovil y por cédula un cliente:
-		Automovil autoBuscado = this.iAutomovilService.buscar("1234");
-		System.out.println(autoBuscado);
-		Cliente clienteBuscado = this.iClienteService.buscar("1234567");
-		System.out.println(clienteBuscado);
-		
-		//Borrar renta y pago en una sola operación:
+//		Automovil autoBuscado = this.iAutomovilService.buscar("AAA-525");
+//		System.out.println(autoBuscado);
+//		Cliente clienteBuscado = this.iClienteService.buscar("2256489-2");
+//		System.out.println(clienteBuscado);
+	
+	// 4. Borrar renta y pago en una sola operación:
+		// Para hacer esta jugada, debo colocar de ley en las anotaciones de Cliente y Automovil el cascade.Remove, ya que si no lo hago, al
+		// querer eliminar una Renta, no podré hacerlo, puesto que necesito eliminar también los valores en las tablas originales. 
+//		this.iRentaService.borrar(3);
 		
 	}
 

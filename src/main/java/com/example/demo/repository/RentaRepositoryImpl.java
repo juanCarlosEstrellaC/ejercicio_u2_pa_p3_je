@@ -20,4 +20,11 @@ public class RentaRepositoryImpl implements IRentaRepository{
 		this.entityManager.persist(renta);
 	}
 
+	@Override
+	public void borrar(Integer id) {
+		Renta r = this.entityManager.find(Renta.class, id);
+		System.out.println(r);
+		this.entityManager.remove(r);
+	}
+
 }
